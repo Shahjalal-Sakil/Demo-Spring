@@ -36,3 +36,16 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+task welcome{
+    doLast {
+        println("Welcome gradle task")
+    }
+}
+task upload{
+    exec {
+        commandLine 'git' ,'init'
+        commandLine 'git', 'add', '.'
+
+    }
+}
