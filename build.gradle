@@ -42,10 +42,16 @@ task welcome{
         println("Welcome gradle task")
     }
 }
+
 task upload{
-    exec {
-        commandLine 'git' ,'init'
+    exec{
+        commandLine 'git', 'init'
         commandLine 'git', 'add', '.'
+
 
     }
 }
+
+
+
+
