@@ -1,13 +1,10 @@
 package com.example.demo;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,5 +31,27 @@ public class ExternalAPIController {
 
         return new ResponseEntity<>(externalResponse, HttpStatus.OK);
 
+    }
+
+    @RequestMapping(value = "/v1/post",method = RequestMethod.POST)
+    public ResponseEntity<ExternalResponse> postExternal(@RequestBody ExternalResponse externalResponse)
+    {
+        String url = "https://jsonplaceholder.typicode.com/posts";
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("userId",externalResponse.getUserId());
+        data.put("title","TEST Title");
+        data.put("body",externalResponse.getBody());
+
+        HttpEntity<Map<String,Object>> entity = new HttpEntity<>(data,httpHeaders);
+
+        long reqTime = System.currentTimeMillis();
+        ResponseEntity<ExternalResponse> response = restTemplate.postForEntity(url,entity,ExternalResponse.class);
+        return response;
     }
 }
