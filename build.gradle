@@ -49,6 +49,7 @@ task upload{
         commandLine 'git', 'add', '.'
 
 
+
     }
 }
 

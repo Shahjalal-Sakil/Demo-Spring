@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -16,13 +16,7 @@ public class Donor {
     private String name;
     private String bloodGroup;
     private String contact;
-    protected Donor(){}
-    Donor( String name, String bloodGroup, String contact)
-    {
-        this.name = name;
-        this.bloodGroup = bloodGroup;
-        this.contact = contact;
-    }
+
     public Long getId()
     {
         return id;
