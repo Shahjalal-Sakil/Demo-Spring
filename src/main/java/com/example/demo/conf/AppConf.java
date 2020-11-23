@@ -19,7 +19,7 @@ public class AppConf {
     @Value("${demo.service.imple.id}")
     private String id;
 
-    private static final Logger log =  LoggerFactory.getLogger(DemorestApplication.class);
+    //private static final Logger log =  LoggerFactory.getLogger(DemorestApplication.class);
 
 
     @Bean

@@ -29,6 +29,13 @@ dependencies {
 
     testCompileOnly 'org.projectlombok:lombok:1.18.16'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.hibernate:hibernate-core'
+    implementation 'org.springframework:spring-orm'
 
 
 }
@@ -47,10 +54,18 @@ task upload{
     exec{
         commandLine 'git', 'init'
         commandLine 'git', 'add', '.'
-
-
+        commandLine 'git', 'commit','-m','commited'
+        commandLine 'git','remote','add','origin','https://github.com/Shahjalal-Sakil/Demo-Spring.git'
+        commandLine 'git','remote','-v'
+        commandLine 'git','push','origin','master'
 
     }
+}
+task gitPush(type:Exec){
+    workingDir '.'
+    commandLine 'chmod' ,'+x', 'gitpush.sh'
+    commandLine './gitpush.sh'
+
 }
 
 

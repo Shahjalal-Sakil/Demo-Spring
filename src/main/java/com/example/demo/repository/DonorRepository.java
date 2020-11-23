@@ -1,14 +1,17 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.Donor;
+import org.hibernate.SessionFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 public interface DonorRepository extends JpaRepository<Donor,Long> {
+
 
     @Query("select d from Donor d where d.bloodGroup = ?1")
     List<Donor> findByBloodGroup(String bloodGroup);
@@ -25,5 +28,7 @@ public interface DonorRepository extends JpaRepository<Donor,Long> {
     int updateDonor(@Param("name") String name, @Param("bloodGroup") String bloodGroup, @Param("contact") String contact,@Param("id") long id);
 
     void deleteById(long id);
+
+
 
 }
