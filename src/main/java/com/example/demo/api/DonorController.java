@@ -46,9 +46,11 @@ public class DonorController {
     }
 
     @RequestMapping(value = "/donors/{id}",method = RequestMethod.PUT)
-    public void updateDonor(@RequestBody Donor donorDto,@PathVariable long id)
+    public void updateDonor(@RequestBody DonorDto donorDto ,@PathVariable long id)
     {
-          donorService.updateDonor(donorDto,id);
+
+
+        donorService.updateDonor(donorDto,id);
     }
 
     @RequestMapping(value = "/donors/{id}",method = RequestMethod.DELETE)

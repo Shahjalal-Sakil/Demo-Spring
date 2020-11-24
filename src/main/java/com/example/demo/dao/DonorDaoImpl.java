@@ -10,23 +10,34 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.Root;
 
 @Repository
 public class DonorDaoImpl implements DonorDao {
     private static Logger logger = LoggerFactory.getLogger(DonorDaoImpl.class);
+    @PersistenceContext
+    EntityManager em;
 
     @Override
+    @Transactional
     public void updateDonor(Donor donor,long id) {
-        Session session = DemorestApplication.sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        Donor donor1 = (Donor) session.load(Donor.class,id);
-        donor1.setName(donor.getName());
-        donor1.setContact(donor.getContact());
-        donor1.setBloodGroup(donor.getBloodGroup());
-        logger.info(donor1.toString());
-
-        //session.saveOrUpdate(donor1);
-        transaction.commit();
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaUpdate<Donor> update = criteriaBuilder.createCriteriaUpdate(Donor.class);
+        Root<Donor> c = update.from(Donor.class);
+        update.set(c.get("contact"),donor.getContact())
+                .where(criteriaBuilder.equal(c.get("id"),id));
+        em.createQuery(update).executeUpdate();
+        em.close();
     }
 }

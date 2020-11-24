@@ -18,6 +18,7 @@ public class DonorServiceImpl implements DonorService {
     @Autowired
     DonorRepository donorRepository;
 
+
     @Autowired
     DonorDao donorDao;
 
@@ -93,9 +94,11 @@ public class DonorServiceImpl implements DonorService {
     }
 
     @Override
-    @Transactional
-    public void updateDonor(Donor donor,long id) {
-
+    public void updateDonor(DonorDto donorDto,long id) {
+        Donor donor = new Donor();
+        donor.setName(donorDto.getName());
+        donor.setBloodGroup(donorDto.getBloodGroup());
+        donor.setContact(donorDto.getContact());
         donorDao.updateDonor(donor,id);
     }
 }

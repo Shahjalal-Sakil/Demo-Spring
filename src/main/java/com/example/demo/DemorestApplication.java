@@ -4,47 +4,77 @@ import com.example.demo.entity.Donor;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.provider.HibernateUtils;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.web.client.RestTemplate;
 
+import javax.sql.DataSource;
 import java.util.Properties;
 
 @SpringBootApplication
 public class DemorestApplication {
 
     //private static final Logger log = LoggerFactory.getLogger(DemorestApplication.class);
-    public static SessionFactory sessionFactory;
+    @Autowired
+    private Environment env;
 
     public static void main(String[] args) {
-
-        Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(Donor.class);
-        Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        properties.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        properties.put("hibernate.connection.url", "jdbc:mysql://localhost:3306/myDb");
-        properties.put("hibernate.connection.username", "sakil");
-        properties.put("hibernate.connection.password", "12345");
-        properties.put("show_sql", "true");
-        properties.put("hbm2ddl.auto", "update");
-        properties.put("hibernate.current_session_context_class","thread");
-        configuration.setProperties(properties);
-         sessionFactory = configuration.buildSessionFactory();
 
         SpringApplication.run(DemorestApplication.class, args);
     }
 
-    public SessionFactory getSessionFactory()
+    @Bean(name="dataSource")
+    public DataSource getDataSource()
     {
-
-        return sessionFactory;
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
+        dataSource.setUrl(env.getProperty("spring.datasource.url"));
+        dataSource.setUsername(env.getProperty("spring.datasource.username"));
+        dataSource.setPassword(env.getProperty("spring.datasource.password"));
+        return dataSource;
     }
+
+/**
+    @Bean(name="sessionFactory")
+    public SessionFactory getSessionFactory(DataSource dataSource)throws Exception{
+        Properties properties = new Properties();
+        properties.put("hibernate.dialect",env.getProperty("spring.jpa.properties.hibernate.dialect"));
+        properties.put("hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
+        properties.put("current_session_context_class", //
+                env.getProperty("spring.jpa.properties.hibernate.current_session_context_class"));
+
+        LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
+        //localSessionFactoryBean.setPackagesToScan(new String[]{""});
+        localSessionFactoryBean.setDataSource(dataSource);
+        localSessionFactoryBean.setHibernateProperties(properties);
+        localSessionFactoryBean.afterPropertiesSet();
+
+        SessionFactory sf = localSessionFactoryBean.getObject();
+        return sf;
+    }
+**/
+   /* @Autowired
+    @Bean(name = "transactionManager")
+    public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory)
+    {
+        HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager(sessionFactory);
+        return hibernateTransactionManager;
+    }*/
+
 
 /***
     @Bean

@@ -18,5 +18,5 @@ public interface DonorService {
     DonorDto getDonorById(long id);
     //DonorDto updateDonor(DonorDto donorDto ,long id);
     void deleteDonor(long id);
-    void updateDonor(Donor donor,long id);
+    void updateDonor(DonorDto donorDto,long id);
 }
