@@ -14,15 +14,11 @@ import com.example.demo.service.DemoServiceImpl1;
 import com.example.demo.service.DemoServiceImpl2;
 
 
-@Configuration
 public class AppConf {
-    @Value("${demo.service.imple.id}")
+
     private String id;
 
     //private static final Logger log =  LoggerFactory.getLogger(DemorestApplication.class);
-
-
-    @Bean
     public DemoService getDemoService()
     {
         if(id.equals("1"))
