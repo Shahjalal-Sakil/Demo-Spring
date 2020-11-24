@@ -26,6 +26,7 @@ import javax.persistence.criteria.Root;
 @Repository
 public class DonorDaoImpl implements DonorDao {
     private static Logger logger = LoggerFactory.getLogger(DonorDaoImpl.class);
+    
     @PersistenceContext
     EntityManager em;
 
@@ -36,6 +37,8 @@ public class DonorDaoImpl implements DonorDao {
         CriteriaUpdate<Donor> update = criteriaBuilder.createCriteriaUpdate(Donor.class);
         Root<Donor> c = update.from(Donor.class);
         update.set(c.get("contact"),donor.getContact())
+                .set(c.get("name"),donor.getName())
+                .set(c.get("bloodGroup"),donor.getBloodGroup())
                 .where(criteriaBuilder.equal(c.get("id"),id));
         em.createQuery(update).executeUpdate();
         em.close();
