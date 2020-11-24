@@ -26,7 +26,7 @@ import javax.persistence.criteria.Root;
 @Repository
 public class DonorDaoImpl implements DonorDao {
     private static Logger logger = LoggerFactory.getLogger(DonorDaoImpl.class);
-    
+
     @PersistenceContext
     EntityManager em;
 
