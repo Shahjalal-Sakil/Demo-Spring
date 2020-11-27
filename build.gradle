@@ -21,6 +21,8 @@ dependencies {
     implementation 'org.springframework.data:spring-data-rest-hal-explorer'
     implementation 'org.springframework.session:spring-session-core'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     runtimeOnly 'mysql:mysql-connector-java'
@@ -30,13 +32,14 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.16'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-   //implementation 'org.hibernate:hibernate-core'
-   // implementation 'org.springframework:spring-orm'
     compile 'org.threeten:threetenbp:1.5.0'
+    testCompile 'com.h2database:h2'
+    testCompile 'org.junit.jupiter:junit-jupiter-engine'
+    testCompile('org.mockito:mockito-core')
+    testCompile('org.junit.platform:junit-platform-runner')
+    testCompile('org.junit.vintage:junit-vintage-engine')
 
 
 }

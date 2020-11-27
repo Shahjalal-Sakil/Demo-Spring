@@ -1,5 +1,6 @@
 package com.example.demo.api;
 
+import com.example.demo.entity.Number;
 import com.example.demo.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,5 +21,7 @@ public class DemoController {
     {
         return demoService.demoAction();
     }
+
+
 
 }

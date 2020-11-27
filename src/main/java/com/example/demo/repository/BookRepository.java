@@ -7,4 +7,5 @@ public interface BookRepository extends MongoRepository<Book,Long> {
     Book findById(long id);
     Book getBookByName(String name);
 
+
 }

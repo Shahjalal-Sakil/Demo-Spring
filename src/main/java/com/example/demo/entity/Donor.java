@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
  @Entity
+@NoArgsConstructor
 public class Donor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,6 +20,13 @@ public class Donor implements Serializable {
     private String name;
     private String bloodGroup;
     private String contact;
+
+    public Donor(String name, String bloodGroup, String contact)
+    {
+        this.name = name;
+        this.bloodGroup = bloodGroup;
+        this.contact = contact;
+    }
 
     public Long getId()
     {
