@@ -40,8 +40,7 @@ public class ExternalAPIController {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
 
         Map<String, Object> data = new HashMap<>();
         data.put("userId",externalResponse.getUserId());

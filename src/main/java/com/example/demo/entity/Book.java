@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 
 @Data
 @Document
+@AllArgsConstructor
 public class Book implements Serializable {
     private static final long serialId = 7156526077883281623L;
     @Id
