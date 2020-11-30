@@ -124,11 +124,19 @@ public class DonorServiceTest {
 
         DonorDto donorDto = new DonorDto("TN","TG","1234");
 
-        doNothing().when(donorDao).updateDonor(donor,1L);
+
 
         donorService.updateDonor(donorDto,1L);
 
-        verify(donorDao).updateDonor(donor,1L);
+
+        ArgumentCaptor<Donor> anyDonor = ArgumentCaptor.forClass(Donor.class);
+        ArgumentCaptor<Long> id = ArgumentCaptor.forClass(Long.class);
+
+        verify(donorDao).updateDonor(anyDonor.capture(),id.capture());
+
+
+        assertEquals(anyDonor.getValue().getName(),donor.getName());
+        assertEquals(id.getValue().longValue(),1L);
     }
 
 
