@@ -4,6 +4,9 @@ import com.example.demo.entity.Donor;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,6 +29,8 @@ import org.springframework.web.client.RestTemplate;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+import org.springframework.amqp.core.Queue;
+
 @SpringBootApplication
 @EnableCaching
 public class DemorestApplication {
@@ -33,6 +38,8 @@ public class DemorestApplication {
     //private static final Logger log = LoggerFactory.getLogger(DemorestApplication.class);
     @Autowired
     private Environment env;
+
+
 
     public static void main(String[] args) {
 
