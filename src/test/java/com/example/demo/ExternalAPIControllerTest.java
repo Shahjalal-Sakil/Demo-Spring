@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -34,15 +35,8 @@ public class ExternalAPIControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-
-
-
     @Mock
-    RestTemplate restTemplate;
-
-
-
-
+    TestRestTemplate restTemplate;
 
     @Test
     public void testGetPost_ReturnsExternalResponse() throws Exception {
@@ -64,8 +58,8 @@ public class ExternalAPIControllerTest {
         ExternalResponse res = mapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<ExternalResponse>() {
         });
 
-        assertEquals(res.getTitle(),externalResponse.getTitle());
-        System.out.println(mvcResult.getResponse().getContentAsString());
+        assertEquals(res.getId(),externalResponse.getId());
+        //System.out.println(mvcResult.getResponse().getContentAsString());
 
     }
 
@@ -80,11 +74,13 @@ public class ExternalAPIControllerTest {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
         Map<String, Object> data = new HashMap<>();
         data.put("userId",externalResponse.getUserId());
         data.put("id",externalResponse.getId());
         data.put("title",externalResponse.getTitle());
         data.put("body",externalResponse.getBody());
+
         HttpEntity<Map<String,Object>> entity = new HttpEntity<>(data,httpHeaders);
 
         ResponseEntity<ExternalResponse> res = new ResponseEntity<>(externalResponse, HttpStatus.OK);
@@ -100,7 +96,6 @@ public class ExternalAPIControllerTest {
 
        //verify(restTemplate).postForEntity(url,entity,ExternalResponse.class);
         assertEquals(result.getUserId(),externalResponse.getUserId());
-
 
     }
 }

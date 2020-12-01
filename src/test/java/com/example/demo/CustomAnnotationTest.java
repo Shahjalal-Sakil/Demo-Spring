@@ -2,10 +2,12 @@ package com.example.demo;
 
 
 import com.example.demo.api.NumberAdder;
+import com.example.demo.api.ObjectToJsonConverter;
 import com.example.demo.entity.Number;
 import com.example.demo.entity.Person;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.internal.matchers.Null;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,7 +25,8 @@ public class CustomAnnotationTest {
         NumberAdder adder = new NumberAdder();
         Exception exception = assertThrows(Exception.class,()->{
             adder.addElement(number);
-    });
+        });
+
         String message = "The value is zero";
 
         assertEquals(message,exception.getMessage());
@@ -49,6 +52,18 @@ public class CustomAnnotationTest {
 
         assertEquals(sum,5);
 
+    }
+
+    @Test
+    public void testObjectToJsonConverter_throwsNullObjectException()
+    {
+        Person person= null;
+
+        Exception exception = assertThrows(Exception.class,()->{
+            ObjectToJsonConverter.ConvertToJson(person);
+        });
+
+        assertEquals(exception.getMessage(),"Object is NuLL!!!");
     }
 
 
