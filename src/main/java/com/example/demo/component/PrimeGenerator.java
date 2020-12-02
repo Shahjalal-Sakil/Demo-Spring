@@ -33,13 +33,15 @@ public class PrimeGenerator {
     public void computePrime(Request request) throws InterruptedException {
         int num = request.getNum();
 
-
-        long prime = getNthPrime(num);
-        //Thread.sleep(10000);
-
-        Response response = new Response(request.getCorrelationId(),prime,true);
-        pushResponse(response);
-
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                long prime = getNthPrime(num);
+                Response response = new Response(request.getCorrelationId(),prime,true);
+                pushResponse(response);
+            }
+        };
+        new Thread(runnable).start();
     }
 
     public void pushResponse(Response response)
