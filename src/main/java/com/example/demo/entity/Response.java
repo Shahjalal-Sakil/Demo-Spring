@@ -1,16 +1,21 @@
 package com.example.demo.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Response {
+public class Response implements Serializable {
     private UUID correlationId;
     private long result;
+    private boolean ready;
+
+    public boolean getReady()
+    {
+        return ready;
+    }
 }
