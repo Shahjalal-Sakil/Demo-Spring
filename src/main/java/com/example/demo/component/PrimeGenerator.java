@@ -34,9 +34,10 @@ public class PrimeGenerator {
         int num = request.getNum();
 
 
-        Thread.sleep(10000);
+        long prime = getNthPrime(num);
+        //Thread.sleep(10000);
 
-        Response response = new Response(request.getCorrelationId(),num,true);
+        Response response = new Response(request.getCorrelationId(),prime,true);
         pushResponse(response);
 
     }
@@ -56,6 +57,27 @@ public class PrimeGenerator {
    */
 
         responseRepository.save(response);
+    }
+
+
+    public long getNthPrime(int n)
+    {
+        int num, count, i;
+        num=1;
+        count=0;
+
+        while (count < n){
+            num=num+1;
+            for (i = 2; i <= num; i++){
+                if (num % i == 0) {
+                    break;
+                }
+            }
+            if ( i == num){
+                count = count+1;
+            }
+        }
+        return num;
     }
 
 }
