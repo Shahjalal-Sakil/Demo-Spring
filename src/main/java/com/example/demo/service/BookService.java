@@ -10,4 +10,5 @@ public interface BookService {
     void createBook(Book book);
     Book findById(long id);
     Book getBookByTitle(String title);
+    Book updateBook(long id, Book book);
 }

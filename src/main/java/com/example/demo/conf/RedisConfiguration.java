@@ -12,13 +12,17 @@ import java.util.UUID;
 @Configuration
 public class RedisConfiguration {
 
+    public static final String HOST_NAME = "localhost";
+    public static final int PORT = 6379;
+
     @Bean
     JedisConnectionFactory jedisConnectionFactory()
     {
-        RedisStandaloneConfiguration conf = new RedisStandaloneConfiguration("localhost",6379);
+        RedisStandaloneConfiguration conf = new RedisStandaloneConfiguration(HOST_NAME, PORT);
 
         return new JedisConnectionFactory(conf);
     }
+
     @Bean
     RedisTemplate<UUID, Response> responseRedisTemplate()
     {

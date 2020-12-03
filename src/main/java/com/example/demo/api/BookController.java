@@ -7,6 +7,7 @@ import com.example.demo.service.BookServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +44,12 @@ public class BookController {
     {
         log.info("Getting Book with title {}",title);
         return bookService.getBookByTitle(title);
+    }
+
+    @PutMapping(value = "library/books/{id}")
+   @CachePut(value = "books", key = "#book.name")
+    public Book updateBook(@PathVariable long id, @RequestBody Book book)
+    {
+        return bookService.updateBook(id,book);
     }
 }

@@ -10,6 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Response implements Serializable {
+    private static final long serialId = 100L;
     private UUID correlationId;
     private long result;
     private boolean ready;

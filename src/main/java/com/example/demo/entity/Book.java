@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Document
 @AllArgsConstructor
 public class Book implements Serializable {
-    private static final long serialId = 7156526077883281623L;
+    private static final long serialId = 45L;
     @Id
     long id;
     String name;
