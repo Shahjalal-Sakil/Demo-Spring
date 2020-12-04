@@ -59,8 +59,6 @@ public class DonorController {
             @ApiParam(required = true,name = "id",value = "id of donor you wanted to update")@PathVariable long id,
             @ApiParam(required = true,name="donor",value = "updated donor") @RequestBody DonorDto donorDto)
     {
-
-
         donorService.updateDonor(donorDto,id);
     }
 
@@ -69,11 +67,8 @@ public class DonorController {
     public void deleteDonor(@ApiParam(required = true,name = "id",value = "id of donor you wanted to delete")@PathVariable long id)
     {
         donorService.deleteDonor(id);
+
     }
-
-
-
-
 
 
 

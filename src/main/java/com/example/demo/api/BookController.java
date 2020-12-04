@@ -7,6 +7,7 @@ import com.example.demo.service.BookServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +52,13 @@ public class BookController {
     public Book updateBook(@PathVariable long id, @RequestBody Book book)
     {
         return bookService.updateBook(id,book);
+    }
+
+
+    @DeleteMapping(value = "library/books/{id}")
+    @CacheEvict(value = "books",key = "#id")
+    public void deleteBook(@PathVariable long id)
+    {
+        bookService.deleteBook(id);
     }
 }

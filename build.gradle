@@ -62,6 +62,7 @@ task welcome{
     }
 }
 
+
 task upload{
     exec{
         commandLine 'git', 'init'
@@ -76,7 +77,7 @@ task upload{
 task gitPush(type:Exec){
     workingDir '.'
     commandLine 'chmod' ,'+x', 'gitpush.sh'
-    commandLine './gitpush.sh'
+    commandLine 'sh','./gitpush.sh'
 
 }
 

@@ -1,5 +1,6 @@
 package com.example.demo.api;
 
+import com.example.demo.entity.Demo;
 import com.example.demo.entity.Number;
 import com.example.demo.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,12 @@ public class DemoController {
     public String getDemo()
     {
         return demoService.demoAction();
+    }
+
+    @GetMapping(value = "/api/demo/get/")
+    public Demo getDemoClass()
+    {
+       return demoService.getDemoClass();
     }
 
 

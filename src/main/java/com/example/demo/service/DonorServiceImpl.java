@@ -29,8 +29,7 @@ public class DonorServiceImpl implements DonorService {
     public List<DonorDto> getDonors() {
         List<DonorDto> donorDtos = new ArrayList<>();
         List<Donor> donors = donorRepository.findAll();
-        for (Donor donor:donors)
-        {
+        for (Donor donor : donors) {
             DonorDto donorDto = new DonorDto();
             donorDto.setName(donor.getName());
             donorDto.setBloodGroup(donor.getBloodGroup());
