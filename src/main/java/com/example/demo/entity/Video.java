@@ -14,7 +14,7 @@ public class Video {
     long id;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "createdBy")
+    @JoinColumn(name = "created_by")
     private User user;
 
     String fileName;

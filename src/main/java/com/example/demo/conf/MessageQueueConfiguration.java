@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 public class MessageQueueConfiguration {
     static final String exchangeName = "prime-request-exchange";
     static final String queueName = "request-queue";
+    public static final String ROUTING_KEY = "prime.request";
 
     @Bean
     Queue request()
@@ -31,7 +32,7 @@ public class MessageQueueConfiguration {
     @Bean
     Binding binding(Queue request, DirectExchange directExchange)
     {
-        return BindingBuilder.bind(request).to(directExchange).with("prime.request");
+        return BindingBuilder.bind(request).to(directExchange).with(ROUTING_KEY);
     }
     @Bean
     public MessageConverter jackson2MessageConverter() {

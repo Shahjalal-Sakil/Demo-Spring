@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
 import com.example.demo.entity.Device;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,6 +11,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +21,8 @@ public class User {
 
 
     @ManyToOne(targetEntity = Device.class,fetch = FetchType.LAZY)
-    @JoinColumn(name = "deviceId")
+    @JoinColumn(foreignKey = @ForeignKey(name = "device_id"),name = "device_id")
+    @JsonBackReference
     private Device device;
 
     Date createdAt;
