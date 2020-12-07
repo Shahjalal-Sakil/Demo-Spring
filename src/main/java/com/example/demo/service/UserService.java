@@ -9,6 +9,8 @@ public interface UserService {
      void createUser(User user);
      List<User> getUserByDevice_Id(long device_id);
      List<User> getUsers();
+     User getUserById(long id);
+     void updateUser(long id , User user);
 
 
 }

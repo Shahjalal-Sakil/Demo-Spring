@@ -25,10 +25,22 @@ public class UserController {
     {
         return userService.getUsers();
     }
-    @GetMapping(value = "/api/users/{deviceId}")
+    @GetMapping(value = "/api/users/deviceId/{deviceId}")
     public List<User> getUsersByDeviceId(@PathVariable long deviceId)
     {
         return userService.getUserByDevice_Id(deviceId);
+    }
+
+    @GetMapping(value = "/api/users/{id}")
+    public User getUser(@PathVariable long id)
+    {
+        return userService.getUserById(id);
+    }
+
+    @PutMapping(value = "/api/users/{id}")
+    public void updateUser(@PathVariable long id, @RequestBody User user)
+    {
+        userService.updateUser(id,user);
     }
 
 }
