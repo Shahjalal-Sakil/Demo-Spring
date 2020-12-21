@@ -1,2 +1,3 @@
 # Demo-Spring
-git clone https://github.com/Shahjalal-Sakil/Demo-Spring.git
+clone the project:
+>git clone https://github.com/Shahjalal-Sakil/Demo-Spring.git
